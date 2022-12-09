@@ -32,7 +32,7 @@ The following content will explain what each section of regex.
 `^`[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+`$`
 
 Anchors do not match any chararcters at all. Instead, they match a position before, after or between chararcters. They were used to "anchor" the regex match a certain position. 
-The caret `^` matches the position before the first character in the string. For example, ^a to abc matches the first character of the string abc. But ^b to abc does not match the second letter b in string abc, because the character b is not the first character of string abc. 
+The caret `^` matches the position before the first character in the word. For example, `^a` to abc matches the first character of the word abc. But `^b` to abc does not match the second letter b in word abc, because the character b is not the first character of word abc. 
 
 ### Quantifiers
 
@@ -130,12 +130,21 @@ Back-references are used to match the same text, which was matched by previous c
 For example:    
 `([a-c])x\1x\1` matches axaxa, bxbxb and cxcxc, but not axbxc, or axbxa,
 ### Look-ahead and Look-behind
-Lookahead and lookbehind are zero-length assertions just like the start and end of word anchors. 
+Lookahead and lookbehind are zero-length assertions just like the start and end of word anchors. Look-ahead or Look-behind actually matches characters, but only return the match result: match or no match. They only assert whether a match is possible or not. 
 
-The difference is that lookaround actually matches characters, but then gives up the match, returning only the result: match or no match. That is why they are called “assertions”. They do not consume characters in the string, but only assert whether a match is possible or not. Lookaround allows you to create regular expressions that are impossible to create without them, or that would get very longwinded without them.
+* `X(?=Y)` Look-ahead allows you to match X but only if it is followed by Y.
+
+* `(?<=Y)` the pattern match X if there is Y before it.
 
 
+### References
+[REXEGG](https://www.rexegg.com/)   
+[ Regular-Expressions.info](https://www.regular-expressions.info/)    
+[JavaScript Tutorial: Regular Expression](https://www.javascripttutorial.net/regular-expression-word-boundaries/)
 ## Author
 
-Wenbo Li,
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+Wenbo Li, 
+Wenbo is a coding lover. He is taking the Rice Univeristy full-stack  BootCamp. Expecting something challenge in the future.
+
+
+GitHub: [deadseal001](https://github.com/deadseal001)
