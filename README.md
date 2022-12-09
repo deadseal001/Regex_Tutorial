@@ -29,7 +29,7 @@ The following content will explain what each section of regex.
 
 ### Anchors
 
-/`^`[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+`$`/
+`^`[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+`$`
 
 Anchors do not match any chararcters at all. Instead, they match a position before, after or between chararcters. They were used to "anchor" the regex match a certain position. 
 The caret `^` matches the position before the first character in the string. For example, ^a to abc matches the first character of the string abc. But ^b to abc does not match the second letter b in string abc, because the character b is not the first character of string abc. 
@@ -40,7 +40,7 @@ Quantifiers specify how many instances of a character, group, or character class
 The simplest quantifier is a number in curly braces: `{n}`
 
 * The exact count: `{3}`
-`\d{3}` denotes exactly 3 digits, the same as \d\d\d.
+`\d{3}` denotes exactly 3 digits, the same as `\d\d\d`.
 * The range: `{2,4}`, match 2-4 times. The uppper limit can be omitted.  Then a regexp `\d{2,}` looks for sequences of digits of length 2 or more.
 #### shorthands
 There are also some shorthands which represent `{m,n}`
@@ -82,7 +82,7 @@ Character classes distinguish kinds of characters. For example, distinguishing b
 
 ### Flags
 In Regex, flags are used to define the search.
-* `i` with this flag, the search won't care about capital letter or lowercase.
+* `i` with this flag, the search will ignore character case.
 * `g` with this flag, the search will return all matches in the request sting. Without it, only the first match will be returned. 
 * `m` Means multiline mode. 
 * `s` Enables "dotall" mode, that allows a dot `.` to match newline character `\n`.
@@ -90,18 +90,48 @@ In Regex, flags are used to define the search.
 * `y` Is for "Sticky" mode, which searches at the exact position in the text. 
 
 ### Grouping and Capturing
+By placing part of a regular expression inside parentheses`()`, you can group that part of the regular expression together. This allows you to apply a quantifier to the entire group or to restrict alternation to part of the regex.
 
-
+* `(abc)` Capturing groups multiple tokens together and creates a capture group. If there are other Regex after this group, This group must be true before moving on to "match" the next part of the code. Example: The regex `Set(Value)?` matches "Set" or "SetValue". 
+* Non-Capturing Groups
+ `Set(?:Value)` The question mark and the colon after the opening parenthesis are the syntax that creates a non-capturing group. The matching result of the content in the parenthesis won't be returned.
 
 ### Bracket Expressions
+A bracket expression is an expression enclosed in square brackets, `[]`. Any individual character between the brackets will match, and you can also use a hyphen to define a set.
+For Example: `'elephant'.match(/[abcd]/) // -> matches 'a'`
+Caret `^` can also be used inside a bracket expression to negate what is between the brackets. 
+For examples: `'donkey'.match(/[^abcd]/) // -> matches 'o'`
 
 ### Greedy and Lazy Match
+Greedy and lazly match are two searching mode in regex. 
+* Greedy mode(default). The quantified character is repeated as many times as possible. The regex search will return the longest possible sting.
+    
+    For examples:  
+    `let regexp = /".+"/g;`  
+    `let str = 'a "witch" and her "broom" is one';`  
+    `alert( str.match(regexp) ); // "witch" and her "broom"`
+* Lazy mode is oposite to greedy mode.It can be enable by putting a question mark '?' after the quantifier. In lazy mode, the Quantified chararcter only repeated the least necessary times.
 
+    For example:   
+    `let regexp = /".+?"/g;`  
+    `let str = 'a "witch" and her "broom" is one';`  
+    `alert( str.match(regexp) ); // "witch","broom"`
 ### Boundaries
 
-### Back-references
+`\b` Is an bondary anchor like the caret `^` and the dollar `$` sign. It matches at a position that is called a “word boundary”.
+For examples:   
+`let regexp= /\bis\b/;`
+`let str='This island is beautiful.';`
+`alert( str.match(regexp)); // "is"`  
+This "is" is from the word "is" but not from the world "this" or "island" because the word bondary `\b` does not match "h" in world "This" or "l" from world "island".
 
+### Back-references
+Back-references are used to match the same text, which was matched by previous capturing group.   
+For example:    
+`([a-c])x\1x\1` matches axaxa, bxbxb and cxcxc, but not axbxc, or axbxa,
 ### Look-ahead and Look-behind
+Lookahead and lookbehind are zero-length assertions just like the start and end of word anchors. The difference is that lookaround actually matches characters, but then gives up the match, returning only the result: match or no match. That is why they are called “assertions”. They do not consume characters in the string, but only assert whether a match is possible or not. Lookaround allows you to create regular expressions that are impossible to create without them, or that would get very longwinded without them.
+
 
 ## Author
 
